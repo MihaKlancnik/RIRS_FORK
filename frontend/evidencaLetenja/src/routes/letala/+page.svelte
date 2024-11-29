@@ -131,7 +131,7 @@
                       <Table.Cell>{plane.ime_letala}</Table.Cell>
                       <Table.Cell>{plane.registrska_st}</Table.Cell>
                       <Table.Cell>{plane.tip}</Table.Cell>
-                      <Table.Cell><Button class="bg-red-500 text-white" on:click={() => deletePlane(plane.idLetalo)}>Izbrisi letalo</Button></Table.Cell>
+                      <Table.Cell><Button id="delete-plane-button" class="bg-red-500 text-white" on:click={() => deletePlane(plane.idLetalo)}>Izbrisi letalo</Button></Table.Cell>
                   </Table.Row>
               {/each}
           </Table.Body>
