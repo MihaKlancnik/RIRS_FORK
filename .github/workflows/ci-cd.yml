@@ -1,0 +1,33 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm install
+        working-directory: frontend/evidencaLetenja
+
+      # Run tests for the frontend
+      - name: Run Frontend Tests
+        run: npm test
+        working-directory: frontend/evidencaLetenja
