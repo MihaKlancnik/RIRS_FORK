@@ -1,0 +1,12 @@
+{
+  "name": "rirs_fork",
+  "version": "1.0.0",
+  "description": "Backend: FastAPI\r     Frontend: Svelte\r     UI: shadcn-svelte\r     Database: MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
