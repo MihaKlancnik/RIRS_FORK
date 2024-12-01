@@ -9,7 +9,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test": "vitest",
-		"test:ci": "test --ci --coverage --watchAll=false"
+		"test:ci": "vitest --coverage"
 	},
 	"devDependencies": {
 		"@internationalized/date": "^3.5.6",
