@@ -21,11 +21,18 @@ jobs:
         with:
           python-version: '3.11.2' # Use the version you need
 
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use the version you need
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          cd frontend/evidencaLetenja
+          npm install
 
       - name: Run tests
         run: |
+          cd frontend/evidencaLetenja
           npm test
         working-directory: frontend/evidencaLetenja
