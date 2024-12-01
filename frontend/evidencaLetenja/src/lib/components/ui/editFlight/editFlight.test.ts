@@ -158,3 +158,67 @@ test('opens the dialog when the trigger button is clicked', async () => {
     expect(screen.getByText(/Uredi polet/i)).toBeInTheDocument();
 });
 
+test("renders the dialog and saves data with onSave", async () => {
+    const mockFlight = {
+        idPolet: 1,
+        cas_vzleta: "01/01/2023 10:00",
+        cas_pristanka: "01/01/2023 12:00",
+        Pilot_idPilot: 101,
+    };
+
+    const mockOnSave = vi.fn();
+
+    render(EditFlightDialog, {
+        polet: mockFlight,
+        onSave: mockOnSave,
+    });
+
+    // Open the dialog
+    const triggerButton = screen.getByText(/Uredi/i);
+    await fireEvent.click(triggerButton);
+
+    // Verify dialog header
+    expect(screen.getByText(/Uredi polet/i)).toBeInTheDocument();
+
+    // Update Pilot ID field
+    const pilotIdInput = screen.getByLabelText(/Pilot ID/i);
+    await fireEvent.input(pilotIdInput, { target: { value: 102 } });
+
+    // Save the updated data
+    const saveButton = screen.getByText(/Shrani/i);
+    await fireEvent.click(saveButton);
+
+    expect(mockOnSave).toHaveBeenCalledWith({
+        idPolet: 1,
+        cas_vzleta: "01/01/2023 10:00",
+        cas_pristanka: "01/01/2023 12:00",
+        Pilot_idPilot: 102,
+    });
+});
+
+test("does not call onSave when dialog is not open", async () => {
+    const mockFlight = {
+        idPolet: 1,
+        cas_vzleta: "01/01/2023 10:00",
+        cas_pristanka: "01/01/2023 12:00",
+        Pilot_idPilot: 101,
+    };
+
+    const mockOnSave = vi.fn();
+
+    render(EditFlightDialog, {
+        polet: mockFlight,
+        onSave: mockOnSave,
+    });
+
+    // Ensure the dialog is not open initially
+    expect(screen.queryByText(/Uredi polet/i)).not.toBeInTheDocument();
+
+    // Save button should not trigger onSave
+    const saveButton = screen.queryByText(/Shrani/i);
+    if (saveButton) await fireEvent.click(saveButton);
+
+    expect(mockOnSave).not.toHaveBeenCalled();
+});
+
+
