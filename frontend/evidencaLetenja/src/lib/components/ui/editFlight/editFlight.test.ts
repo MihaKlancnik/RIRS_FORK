@@ -1,7 +1,9 @@
-import EditFlightDialog from '../EditFlight/editFlightDialog.svelte';
+
 import { render, fireEvent, screen } from '@testing-library/svelte';
 import { expect, test, vi } from 'vitest';
 import '@testing-library/jest-dom';
+import EditFlightDialog from "../editFlight/editFlightDialog.svelte";
+//"$lib/components/ui/addFlight/addFlightDialog.svelte";
 
 test('renders the EditFlight dialog and triggers the onSave function', async () => {
   // Mock data for the flight
