@@ -32,3 +32,18 @@ def delete_pilot(idPilot: int):
         cursor.execute("DELETE FROM Pilot WHERE idPilot = ?", (idPilot,))
         conn.commit()
     return {"message": "Pilot deleted successfully"}
+
+@router.put("/pilot/{idPilot}", response_model=Pilot)
+def update_pilot(idPilot: int, updated_pilot: Pilot):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            UPDATE Pilot 
+            SET ime = ?, priimek = ? 
+            WHERE idPilot = ?''', 
+            (updated_pilot.ime, updated_pilot.priimek, idPilot))
+        conn.commit()
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Pilot not found")
+    updated_pilot.idPilot = idPilot
+    return updated_pilot
