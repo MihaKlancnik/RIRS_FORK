@@ -1,5 +1,5 @@
 # Use a lightweight Python image
-FROM python:3.11-slim
+FROM python:3.9-slim
 
 # Set working directory inside the container
 WORKDIR /app
@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire backend project into the container
 COPY . .
 
+ENV PYTHONPATH=/app/app
 # Expose port 8000 (default FastAPI port)
 EXPOSE 8000
 
