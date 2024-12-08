@@ -39,7 +39,7 @@ jobs:
 
       - name: Build Docker image for Backend
         run: |
-          docker build -t mihaklancnik/rirs:backend-latest -f EvidencaLetenjaBackend/Dockerfile EvidencaLetenjaBackend
+          docker build -t mihaklancnik/rirs:backend:latest -f EvidencaLetenjaBackend/Dockerfile EvidencaLetenjaBackend
 
       - name: Push Docker image to Docker Hub
         run: |
