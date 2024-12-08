@@ -54,6 +54,6 @@ jobs:
            docker build -t klancnikmiha/rirs:frontend-latest -f frontend/evidencaLetenja/Dockerfile frontend/evidencaLetenja
 
       - name: Push Docker image to Docker Hub
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha}}
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha}}
