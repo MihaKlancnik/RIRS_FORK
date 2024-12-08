@@ -51,8 +51,8 @@ jobs:
 
       - name: Build Docker image for Frontend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-app:latest -f frontend/Dockerfile frontend
+          docker build -t klancnikmiha/rirs:frontend-latest -f frontend/Dockerfile frontend
 
       - name: Push Docker image for Frontend to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/frontend-app:latest
+          docker push klancnikmiha/rirs:frontend-latest
