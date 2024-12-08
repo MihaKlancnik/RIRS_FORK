@@ -51,8 +51,9 @@ jobs:
 
       - name: Build Docker image for Frontend
         run: |
-          docker build -t klancnikmiha/rirs:frontend-latest -f frontend/Dockerfile frontend
+           docker build -t klancnikmiha/rirs:frontend-latest -f frontend/evidencaLetenja/Dockerfile frontend/evidencaLetenja
 
-      - name: Push Docker image for Frontend to Docker Hub
-        run: |
-          docker push klancnikmiha/rirs:frontend-latest
+      - name: Push Docker image to Docker Hub
+      run: |
+        docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha}}
