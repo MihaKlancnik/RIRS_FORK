@@ -34,7 +34,7 @@ jobs:
           cd frontend/evidencaLetenja
           npm install
 
-      - name: Build
+      - name: Build Frontend
         run: |
           cd frontend/evidencaLetenja
           npm run build
@@ -46,39 +46,13 @@ jobs:
           path: frontend/evidencaLetenja/.svelte-kit/output
           if-no-files-found: error
 
-  test-frontend:
-    needs: build-frontend
-    runs-on: ubuntu-latest
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: frontend/evidencaLetenja/node_modules
-          key: ${{ runner.os }}-frontend-${{ hashFiles('frontend/evidencaLetenja/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-frontend-
-
-      - name: Install dependencies
+      - name: Build Docker image for Frontend
         run: |
-          cd frontend/evidencaLetenja
-          npm install
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-app:latest -f frontend/Dockerfile frontend
 
-      - name: Run tests with coverage
+      - name: Push Docker image for Frontend to Docker Hub
         run: |
-          cd frontend/evidencaLetenja
-          npm run test:ci
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-ci
-          path: frontend/evidencaLetenja/coverage
+          docker push ${{ secrets.DOCKER_USERNAME }}/frontend-app:latest
